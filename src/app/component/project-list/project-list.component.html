@@ -1,9 +1,15 @@
-<p-table [value]="projects" [tableStyle]="{'min-width': '50rem'}">
+<div class="card">
+  <p-confirmDialog key="confirm" [style]="{width: '400px'}" acceptLabel="Yes, delete it" rejectLabel="No"></p-confirmDialog>
+
+  <p-button id="addProjectBtn" label="Add Project" icon="pi pi-plus" (click)="openDialog()"></p-button>
+
+  <p-table [value]="projects" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
       <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Created Date</th>
+        <th>Actions</th>
       </tr>
     </ng-template>
     
@@ -12,6 +18,34 @@
         <td>{{ project.name }}</td>
         <td>{{ project.description }}</td>
         <td>{{ project.createdDate }}</td>
+        <td>
+          <p-button icon="pi pi-pencil" (click)="editProject(project)" class="p-button-warning" [style]="{'margin-right': '0.5em'}"></p-button>
+          <p-button icon="pi pi-trash" (click)="deleteProject(project)" class="p-button-danger"></p-button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
+
+  <p-dialog [header]="isEditMode ? 'Edit Project' : 'Add New Project'" [(visible)]="showDialog" [modal]="true" [style]="{width: '450px'}">
+    <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+      <div class="dialog-grid">
+        <div class="form-group">
+          <label for="name">Name <span style="color:red">*</span></label>
+          <input id="name" type="text" pInputText [(ngModel)]="newProject.name" name="name" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description <span style="color:red">*</span></label>
+          <textarea id="description" pInputTextarea [(ngModel)]="newProject.description" name="description" required rows="4"></textarea>
+        </div>
+
+        <div class="button-group">
+          <p-button type="submit" label="Save" icon="pi pi-check" [disabled]="!projectForm.valid"></p-button>
+          <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog()" class="p-button-secondary" [style]="{'margin-left': '10px'}"></p-button>
+        </div>
+      </div>
+
+    </form>
+  </p-dialog>
+
+</div>

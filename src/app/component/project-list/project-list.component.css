@@ -1,0 +1,30 @@
+#addProjectBtn{
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem;
+}
+
+.dialog-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label{
+    font-weight: bold;
+}
+
+.form-group input, .form-group textarea{
+    width: 100%;
+}
+
+.button-group{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
